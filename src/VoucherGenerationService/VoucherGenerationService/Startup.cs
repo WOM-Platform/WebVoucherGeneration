@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using WomPlatform.Connector;
 
 namespace VoucherGenerationService {
 
@@ -20,6 +22,11 @@ namespace VoucherGenerationService {
                 conf.Cookie.Domain = Environment.GetEnvironmentVariable("SELF_HOST");
                 conf.Cookie.IsEssential = true;
                 conf.Cookie.Name = "WomGeneratorSession";
+            });
+
+            services.AddTransient(prov => {
+                var loggerFactory = prov.GetRequiredService<ILoggerFactory>();
+                return new Client("dev.wom.social", loggerFactory);
             });
         }
 

@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 namespace VoucherGenerationService {
 
     public class Program {
+
+        public static readonly string SessionKeyLogin = "SessionLogin";
         
         public static void Main(string[] args) {
             CreateHostBuilder(args).Build().Run();
