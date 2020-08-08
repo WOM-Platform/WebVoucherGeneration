@@ -1,0 +1,14 @@
+﻿@{
+    Layout = "Main";
+    ViewBag.Title = "Voucher generation";
+}
+
+<h1>Voucher generation</h1>
+
+@using (Html.BeginForm(nameof(MainController.GenerateVouchers), "Main", FormMethod.Post)) {
+
+    <input type="hidden" name="sessionId" value="@ViewBag.SourceId" />
+
+    <p><input type="submit" value="Generate!" /> (This will take some time.)</p>
+
+}

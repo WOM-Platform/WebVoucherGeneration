@@ -1,0 +1,21 @@
+﻿@model WomPlatform.Connector.Models.MerchantLoginResultV2
+@{
+    Layout = "Main";
+    ViewBag.Title = "Select source";
+}
+
+<h1>Source</h1>
+
+<p>Logged in as @Model.Name @(Model.Surname).</p>
+
+@foreach(var s in Model.Merchants) {
+    <h2>@s.Name</h2>
+
+    @foreach(var pos in s.Pos) {
+        <p>
+            <a href="@Url.Action(nameof(MainController.ShowGenerationForm), "Main", new { sourceId = pos.Id })">
+                @pos.Name
+            </a>
+        </p>
+    }
+}

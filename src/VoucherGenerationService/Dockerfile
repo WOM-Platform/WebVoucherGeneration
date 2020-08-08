@@ -28,4 +28,4 @@ EXPOSE 8779
 # Drop privileges
 USER 1000
 
-ENTRYPOINT ["dotnet", "VoucherGenerationService.dll"]
+ENTRYPOINT ["dotnet", "WomPlatform.Web.Generator.dll"]

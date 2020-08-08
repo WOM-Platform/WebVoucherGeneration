@@ -1,0 +1,18 @@
+﻿@{
+    Layout = "Main";
+    ViewBag.Title = "Login";
+}
+
+<h1>Login</h1>
+
+@using (Html.BeginForm(nameof(SessionController.Login), "Session", FormMethod.Post)) {
+
+    <p><label>Username: <input type="text" name="username" /></label></p>
+
+    <p><label>Password: <input type="password" name="password" /></label></p>
+
+    <p><input type="submit" value="Login" /></p>
+
+    <p>Session will be kept for 15 minutes.</p>
+
+}

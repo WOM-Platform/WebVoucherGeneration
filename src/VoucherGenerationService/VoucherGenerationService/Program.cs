@@ -7,11 +7,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace VoucherGenerationService {
+namespace WomPlatform.Web.Generator {
 
     public class Program {
 
-        public static readonly string SessionKeyLogin = "SessionLogin";
+        public const string SessionKeyLogin = "SessionLogin";
         
         public static void Main(string[] args) {
             CreateHostBuilder(args).Build().Run();

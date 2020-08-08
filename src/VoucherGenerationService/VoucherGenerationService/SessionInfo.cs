@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿namespace WomPlatform.Web.Generator {
 
-namespace VoucherGenerationService {
-    
     public class SessionInfo {
 
         public string Username { get; set; }

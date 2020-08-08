@@ -10,7 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using WomPlatform.Connector;
 
-namespace VoucherGenerationService {
+namespace WomPlatform.Web.Generator {
 
     public class Startup {
 

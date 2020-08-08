@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>WomPlatform.Web.Generator</AssemblyName>
+    <RootNamespace>WomPlatform.Web.Generator</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

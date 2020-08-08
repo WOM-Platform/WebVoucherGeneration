@@ -9,7 +9,7 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using WomPlatform.Connector;
 
-namespace VoucherGenerationService.Controllers {
+namespace WomPlatform.Web.Generator.Controllers {
     
     [Route("session")]
     public class SessionController : Controller {
@@ -35,12 +35,14 @@ namespace VoucherGenerationService.Controllers {
                 return RedirectToAction(nameof(MainController.ShowHome), "Main");
             }
 
-            HttpContext.Session.SetString(Program.SessionKeyLogin, JsonSerializer.Serialize(
+            HttpContext.Session.SetObject(Program.SessionKeyLogin,
                 new SessionInfo {
                     Username = username,
                     Password = password
                 }
-            ));
+            );
+
+            return RedirectToAction(nameof(MainController.ShowInstruments), "Main");
         }
 
     }
