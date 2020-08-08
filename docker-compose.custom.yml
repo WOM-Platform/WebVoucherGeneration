@@ -12,3 +12,4 @@ services:
     - "traefik.port=8779"
     - "traefik.frontend.rule=Host:generator.wom.social"
     - "traefik.frontend.entryPoints=http,https"
+    - "traefik.frontend.redirect.entryPoint=https"
