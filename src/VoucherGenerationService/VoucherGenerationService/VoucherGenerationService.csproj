@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="WomPlatform.Connector" Version="4.1.0" />
+    <PackageReference Include="Portable.BouncyCastle" Version="1.8.6.7" />
+    <PackageReference Include="WomPlatform.Connector" Version="4.2.1" />
   </ItemGroup>
 
 </Project>

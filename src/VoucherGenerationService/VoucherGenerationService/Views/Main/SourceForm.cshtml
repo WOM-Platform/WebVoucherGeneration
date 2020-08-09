@@ -1,14 +1,114 @@
-﻿@{
+﻿@model GenerationFormViewModel
+@{
     Layout = "Main";
     ViewBag.Title = "Voucher generation";
+}
+
+@section head {
+
+    <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=@(Environment.GetEnvironmentVariable("GOOGLE_MAPS_API_KEY") ?? "")"></script>
+
 }
 
 <h1>Voucher generation</h1>
 
 @using (Html.BeginForm(nameof(MainController.GenerateVouchers), "Main", FormMethod.Post)) {
 
-    <input type="hidden" name="sessionId" value="@ViewBag.SourceId" />
+    <input type="hidden" name="sourceId" value="@ViewBag.SourceId" />
+
+    @if(TempData["ErrorMessage"] != null) {
+        <p>Error: @(TempData["ErrorMessage"]).</p>
+    }
+
+    <p>
+        <label>
+            User count:
+            <input type="number" name="genCount" />
+            (PDF pages)
+        </label>
+    </p>
+
+    <p>
+        <label>
+            Voucher count per user:
+            <input type="number" name="voucherCount" />
+        </label>
+    </p>
+
+    <p>
+        <div id="map" style="width: 700px; height: 500px"></div>
+        <div>
+            <label>
+                Latitude: <input type="text" readonly name="latitude" id="mapLat" />
+            </label>
+            <br />
+            <label>
+                Longitude: <input type="text" readonly name="longitude" id="mapLng" />
+            </label>
+        </div>
+    </p>
+
+    <p>
+        <label>
+            Voucher timestamp: 
+            <input type="date" name="date" value="@DateTime.UtcNow.ToString("yyyy-MM-dd")" />
+            <input type="time" name="time" value="@DateTime.UtcNow.ToString("HH:mm")" />
+            (Using UTC zone.)
+        </label>
+    </p>
+
+    <p>
+        <label>
+            Aim: 
+            <select name="aimCode">
+                @foreach(var aim in Model.Aims) {
+                    <option value="@aim.Code">@(aim.Titles["en"])</option>
+                }
+            </select>
+        </label>
+    </p>
 
     <p><input type="submit" value="Generate!" /> (This will take some time.)</p>
 
 }
+
+<script type="text/javascript">
+var map;
+var marker = false;
+
+function initMap() {
+    map = new google.maps.Map(
+        document.getElementById('map'),
+        {
+            center: new google.maps.LatLng(52.357971, -6.516758),
+            zoom: 7,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+    );
+
+    google.maps.event.addListener(map, 'click', function(event) {                
+        var clickedLocation = event.latLng;
+        if(marker === false){
+            marker = new google.maps.Marker({
+                position: clickedLocation,
+                map: map,
+                draggable: true
+            });
+            google.maps.event.addListener(marker, 'dragend', function(event){
+                markerLocation();
+            });
+        } else {
+            marker.setPosition(clickedLocation);
+        }
+        markerLocation();
+    });
+}
+        
+function markerLocation(){
+    var currentLocation = marker.getPosition();
+    document.getElementById('mapLat').value = currentLocation.lat();
+    document.getElementById('mapLng').value = currentLocation.lng();
+}
+
+google.maps.event.addDomListener(window, 'load', initMap);
+</script>

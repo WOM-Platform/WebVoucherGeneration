@@ -1,4 +1,4 @@
-﻿@model WomPlatform.Connector.Models.MerchantLoginResultV2
+﻿@model WomPlatform.Connector.Models.SourceLoginResultV1
 @{
     Layout = "Main";
     ViewBag.Title = "Select source";
@@ -6,16 +6,13 @@
 
 <h1>Source</h1>
 
-<p>Logged in as @Model.Name @(Model.Surname).</p>
+<p>Logged in, pick source to use for voucher generation.</p>
 
-@foreach(var s in Model.Merchants) {
-    <h2>@s.Name</h2>
+@foreach(var s in Model.Sources) {
 
-    @foreach(var pos in s.Pos) {
-        <p>
-            <a href="@Url.Action(nameof(MainController.ShowGenerationForm), "Main", new { sourceId = pos.Id })">
-                @pos.Name
-            </a>
-        </p>
-    }
+    <p>
+        <a href="@Url.Action(nameof(MainController.ShowGenerationForm), "Main", new { sourceId = s.Id })">
+            @s.Name
+        </a>
+    </p>
 }
